@@ -7,6 +7,7 @@ A Chrome extension to allow for bulk booking of WeWork shared desk space. Built 
 - Currently you are only able to select WeWork's located in London, UK.
 - The book is for Shared Desk Space only - this is not configurable. I.e. you cannot book meeting rooms or whole office space.
 - No feedback regarding credits - warning: you may not be able to book space if you don't have enough credits.
+- No feedback regarding availability. You may not be able to book the selected WeWork if it doesn't have desk space.
 
 ## Installing
 
