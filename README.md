@@ -34,4 +34,3 @@ $ npm run dev
 1. access `http://localhost:3000/`
 2. when debugging popup page, open `/popup.html`
 3. when debugging options page, open `/options.html`
-

@@ -26,18 +26,12 @@ export default defineManifest({
       js: ['src/content/index.ts'],
     },
   ],
-  host_permissions: [
-    "*://members.wework.com/*"
-  ],
+  host_permissions: ['*://members.wework.com/*'],
   web_accessible_resources: [
     {
       resources: ['img/logo-16.png', 'img/logo-34.png', 'img/logo-48.png', 'img/logo-128.png'],
       matches: [],
     },
   ],
-  permissions: [
-    "tabs",
-    "activeTab",
-    "scripting",
-  ],
+  permissions: ['tabs', 'activeTab', 'scripting'],
 })
