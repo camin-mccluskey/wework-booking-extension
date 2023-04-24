@@ -33,10 +33,8 @@ async function handleRequest(
 
   try {
     const { startDate, endDate, inventoryUuid } = request.message
-    console.log(request.message)
-    console.log(accessToken)
-    // const weworkApi = await WeWork.build(accessToken)
-    // const bookingResponse = await weworkApi.bookDesk(startDate, inventoryUuid, 1, endDate)
+    const weworkApi = await WeWork.build(accessToken)
+    const bookingResponse = await weworkApi.bookDesk(startDate, inventoryUuid, 1, endDate)
     if (bookingResponse === BookDeskStatus.SUCCESS) {
       return {
         type: ExtensionMessageType.SUCCESS,

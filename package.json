@@ -9,7 +9,7 @@
     "chrome-extension",
     "react",
     "vite",
-    "create-chrome-ext"
+    "wework"
   ],
   "engines": {
     "node": ">=14.18.0"

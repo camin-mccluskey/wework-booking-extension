@@ -123,7 +123,6 @@ export default class WeWork {
       method: 'POST',
     })
     const data = await res.json()
-    console.log(data)
     return data?.data?.requestQuote?.uuid
   }
 
