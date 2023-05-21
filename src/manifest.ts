@@ -1,7 +1,7 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
-  name: 'Better WeWork Booking',
+  name: 'Better WeWork Booking Extension',
   description: 'Improves the experience of booking WeWork desk space',
   version: '0.0.1',
   manifest_version: 3,
