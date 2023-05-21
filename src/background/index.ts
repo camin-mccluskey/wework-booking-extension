@@ -37,6 +37,10 @@ async function handleQueryAvailability(request: ExtensionMessage<QueryAvailabili
     const { startDate, endDate, inventoryUuid } = request.message
     const accessToken = await getAccessToken()
     const weworkApi = await WeWork.build(accessToken)
+    return {
+      type: ExtensionMessageType.SUCCESS,
+      message: await weworkApi.getDeskAvailability(inventoryUuid, startDate, endDate),
+    }
   } catch (error) {
     return {
       type: ExtensionMessageType.ERROR,
@@ -55,7 +59,7 @@ async function handleBookDesk(
     const accessToken = await getAccessToken()
     const weworkApi = await WeWork.build(accessToken)
     const bookingResponse = await weworkApi.bookDesk(startDate, inventoryUuid, 1, endDate)
-    if (bookingResponse === BookDeskStatus.SUCCESS) {
+    if (bookingResponse.every(br => br === BookDeskStatus.SUCCESS)) {
       return {
         type: ExtensionMessageType.SUCCESS,
         message: 'Booking was successful',

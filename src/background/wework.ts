@@ -27,12 +27,17 @@ export default class WeWork {
     this.accessToken = accessToken
   }
 
+
+  async getDeskAvailability(inventoryUuid: string, startDate: Date, endDate: Date | null) {
+    return 'not implemented'
+  }
+
   async bookDesk(startDate: Date, inventoryUuid: string, quantity = 1, endDate: Date | null) {
-    const quoteId = await this.requestQuote(startDate, inventoryUuid, quantity, endDate)
-    if (!quoteId) throw new Error('Booking failed: not able to generate quote for order')
+    const quoteIds = await this.requestQuotes(startDate, inventoryUuid, quantity, endDate)
+    if (!quoteIds) throw new Error('Booking failed: not able to generate quote for order')
     // sleep to allow quote to get to READY state
     await new Promise((_) => setTimeout(_, 3000))
-    return await this.bookOrder(quoteId)
+    return await Promise.all(quoteIds.map(quoteId => this.bookOrder(quoteId)))
   }
 
   private static async getMembershipInfo(accessToken: string) {
@@ -71,18 +76,31 @@ export default class WeWork {
     throw new Error('could not initialise WeWork')
   }
 
-  private async requestQuote(
+  private async requestQuotes(
     startDate: Date,
     inventoryUuid: string,
     quantity = 1,
     endDate: Date | null,
   ) {
     const startDateMoment = moment(startDate)
+    const endDateMoment = endDate ? moment(endDate) : startDateMoment
+    const quoteUuids: string[] = []
+    while (startDateMoment.isSameOrBefore(endDateMoment)) {
+      const quoteUuid = await this.requestQuoteForDay(startDateMoment, inventoryUuid, quantity)
+      quoteUuids.push(quoteUuid)
+      startDateMoment.add(1, 'days')
+    }
+    return quoteUuids
+  }
+
+  private async requestQuoteForDay(
+    startDateMoment: moment.Moment,
+    inventoryUuid: string,
+    quantity = 1,
+  ) {
     startDateMoment.startOf('day')
     const startTime = startDateMoment.format()
-    const endDateMoment = endDate ? moment(endDate) : startDateMoment
-    endDateMoment.endOf('day')
-    const endTime = endDateMoment.format()
+    const endTime = startDateMoment.endOf('day').format()
 
     const res = await fetch('https://mx-gql.wework.com/graphql', {
       body: JSON.stringify({
