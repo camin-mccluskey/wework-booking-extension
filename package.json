@@ -18,7 +18,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "fmt": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'"
+    "fmt": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'",
     "zip": "rm -rf wework-booking-extension.zip && zip -r wework-booking-extension.zip build"
   },
   "dependencies": {
