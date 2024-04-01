@@ -1,7 +1,7 @@
 {
   "name": "wework-booking-extension",
-  "version": "0.0.1",
-  "author": "Camin McCluskey (camin@stackfix.io)",
+  "version": "0.0.2",
+  "author": "Camin McCluskey (camin@stackfix.com)",
   "description": "",
   "type": "module",
   "license": "MIT",
